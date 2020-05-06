@@ -6,8 +6,8 @@
             .main-tabs__header
                 .main-tabs__logo
                     img(src="./assets/logo.svg", alt="alt")
-                .main-tabs__item 
-                    router-link(to="/project/test") Project Name
+                .main-tabs__item(v-if="getProjectName")
+                    router-link(to="/project/") {{ getProjectName }}
                         .main-tabs__item-underline
                 .main-tabs__item 
                     router-link(to="/") Project List
@@ -30,18 +30,24 @@
                         .account__expand
 
         .main-tabs__content
-                transition(name="fade", mode="out-in", :css="true")
-                    router-view
+            transition(name="fade", mode="out-in", :css="true")
+                router-view
         //- Footer
 </template>
 
 
 
 <script>
+import { mapGetters } from 'vuex';
 import Footer from './components/Footer';
 
 export default {
-
+    computed: {
+        ...mapGetters({
+            getProjectName: "main/getProjectName",
+            getProject: "project/getProject"
+        })
+    },
     methods: {
         logOutAction() {
             this.$fire({
@@ -104,7 +110,7 @@ export default {
             left 0
             background white
             padding 2.5vh 0
-
+            z-index 10
             box-shadow: inset 0px -1px 0px #E2E2EA;
 
             display flex

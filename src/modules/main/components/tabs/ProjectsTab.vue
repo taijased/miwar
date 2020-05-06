@@ -2,29 +2,49 @@
 
 <template lang="pug">
     .projects
-        .project-card
+        .project-card(@click="createProject()")
             .project-card__img
                 img(src="../../assets/plus.svg", alt="alt", class="create-project")
             .project-card__title Add Project
             .project-card__content Born and raised in Pennsylvania, Swift moved to Nashville, Tennessee.
 
-        .project-card(v-for="item in 2", :key="`key-project-card-${item}`", @click="openProject()")
-            .project-card__img
+        .project-card(v-for="(item, index) in getProjects", :key="`key-project-card-${index}`")
+            .project-card__img(@click="openProject(item.id)")
                 img(:src="geeImagePath(1)")
-            .project-card__title {{  "Test project name" }}
-            .project-card__content {{  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, ut labore et dolore magna aliqua." }}
+            .project-card__title(@click="openProject(item.id)") {{  item.name }}
+            .project-card__content(@click="openProject(item.id)") {{  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, ut labore et dolore magna aliqua." }}
+            .project-card__delete(@click="removeProject(item.id)")
+                div Удалить
+          
 </template>
 
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
+    computed: {
+        ...mapGetters({
+            getProjects: "project/getProjects"
+        })
+    },
     methods: {
+        ...mapActions({
+            fetchProjects: "project/fetchProjects",
+            removeProject: "project/removeProject"
+        }),
         geeImagePath(index) {
             return require("../../assets/hotpng.png")
         },
-        openProject() {
-            this.$router.push("/project/test")
-        }
+        openProject(guid) {
+            this.$router.push("/project/" + guid)
+        },
+        createProject() {
+            this.$router.push("/create-project")
+        },
+    },
+    created() {
+        this.fetchProjects()
     }
 };
 </script>
@@ -74,6 +94,30 @@ export default {
         margin-top 10px
         text-align left
         color #44444F
+    &__delete
+        width 100%
+        display flex
+        flex-direction row
+        justify-content flex-end
+        margin-top 10px
+        margin-bottom -10px
+        div 
+            h5()
+            width 90px
+            height 20px
+            background red
+            display flex
+            flex-direction row
+            justify-content center
+            align-items center
+            border-radius 5px
+            color white
+            transition all .25s
+            &:hover
+                cursor pointer
+                opacity 0.7
+                transition all .25s
+
 
 
 .create-project

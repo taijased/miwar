@@ -18,6 +18,7 @@ const SignIn = () => import('../modules/auth/components/SignIn.vue')
 const SignUp = () => import('../modules/auth/components/SignUp.vue')
 
 const Projects = () => import('../modules/main/Index.vue')
+const CreateTab = () => import('../modules/main/components/tabs/CreateTab.vue')
 const ProjectsTab = () => import('../modules/main/components/tabs/ProjectsTab.vue')
 const AnalyticsTab = () => import('../modules/main/components/tabs/AnalyticsTab.vue')
 
@@ -52,7 +53,7 @@ export default new VueRouter({
     {
       path: "/",
       component: Projects,
-      beforeEnter: AuthService.requireAuth,
+      // beforeEnter: AuthService.requireAuth,
       children: [
         {
           path: "/",
@@ -61,6 +62,11 @@ export default new VueRouter({
         {
           path: "/project/:guid",
           component: Project,
+
+        },
+        {
+          path: "/create-project",
+          component: CreateTab,
 
         },
         {

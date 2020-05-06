@@ -4,10 +4,13 @@
     .wysywig
         quill-editor(ref="myQuillEditor", 
             v-model="content", 
-            :options="editorOption", 
-            @blur="onEditorBlur($event)",
-            @focus="onEditorFocus($event)", 
-            @ready="onEditorReady($event)")
+            :options="editorOption")
+        //- quill-editor(ref="myQuillEditor", 
+        //-     v-model="content", 
+        //-     :options="editorOption", 
+        //-     @blur="onEditorBlur($event)",
+        //-     @focus="onEditorFocus($event)", 
+        //-     @ready="onEditorReady($event)")
 
 </template>
 <script>
@@ -22,26 +25,26 @@ export default {
     },
     methods: {
         ...mapActions({
-            setContent: "project/setContent"
+            setContent: "project/setContent",
+            fetchProject: "project/fetchProject"
         }),
-        onEditorBlur(quill) {
-            console.log('editor blur!', quill)
-        },
-        onEditorFocus(quill) {
-            console.log('editor focus!', quill)
-        },
-        onEditorReady(quill) {
-            console.log('editor ready!', quill)
-        },
-        onEditorChange({ quill, html, text }) {
-
-            console.log('editor change!', quill, html, text)
-            this.content = html
-        }
+        // onEditorBlur(quill) {
+        //     console.log('editor blur!', quill)
+        // },
+        // onEditorFocus(quill) {
+        //     console.log('editor focus!', quill)
+        // },
+        // onEditorReady(quill) {
+        //     console.log('editor ready!', quill)
+        // },
+        // onEditorChange({ quill, html, text }) {
+        //     console.log('editor change!', quill, html, text)
+        //     this.content = html
+        // }
     },
     computed: {
         ...mapGetters({
-            getContent: "project/getContent"
+            getContent: "project/getContent",
         }),
         content: {
             get(){
@@ -57,6 +60,13 @@ export default {
     },
     mounted() {
         console.log('this is current quill instance object', this.editor)
+    },
+    created() {
+        this.fetchProject(this.$route.params.guid)
+    },
+    beforeDestroy(){
+        console.log("object");
+        this.setContent(null)
     }
 
 };
@@ -73,16 +83,21 @@ export default {
     align-items center
     margin-right 40px
     border-radius 20px
-    .quill-editor
-        height 100%
-        width 100%
-        .ql-container
-            height 88%
-            .ql-snow
-                border none
+   
 </style>
 
 <style lang="stylus">
+
+.quill-editor
+    height 100%
+    width 100%
+    .ql-container
+        height 88%
+        border none !important
 .ql-toolbar
     border none !important
+
+.ql-editor
+    overflow hidden
+
 </style>

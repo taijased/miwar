@@ -4,7 +4,7 @@
     .mobile-view
         .mobile-page(class="output ql-snow")
             .ql-editor(v-html="getContent")
-        .generate-btn 
+        .generate-btn(@click="createProject()")
             img(src="../assets/generatemark.svg", alt="alt")
             span Generate Mark
 
@@ -13,15 +13,34 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+
+import { mapGetters, mapActions } from 'vuex';
 
 
 export default {
+    methods: {
+        ...mapActions({
+            generateMark: "project/generateMark",
+            updateProject: "project/updateProject"
+        }),
+        createProject() {
+            window.href = "https://google.com"
+            let payload = {
+                id: this.$route.params.guid,
+                content: this.getContent
+            }
+            this.updateProject(payload)
+
+            setTimeout(() => {
+                this.generateMark(payload.id)
+            }, 1500);
+        }
+    },
     computed: {
         ...mapGetters({
             getContent: "project/getContent"
-        }),
-    }
+        })
+    },
 
 };
 </script>
@@ -61,9 +80,18 @@ export default {
             font-size: 14px;
             line-height: 21px;
             color: #FAFAFB;
+        &:hover
+            cursor pointer
+            opacity 0.7
+            transition all .25s
 
 
 
 
+</style>
+
+<style lang="stylus" scoped>
+.ql-editor
+    overflow hidden
 
 </style>

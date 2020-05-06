@@ -5,6 +5,7 @@
     <vue-snotify></vue-snotify>
 </template>
 <script>
+
 export default {
  
 }
