@@ -1,0 +1,155 @@
+
+//-----------------Height-----------------------//
+
+$header-height = 10vh
+
+
+
+
+
+
+
+//-----------------COLORS-----------------------//
+
+$main-color = #4737D6
+$dark-color = #3C3D3C
+$gray = #686868
+//-----------------FONTS-----------------------//
+
+$h1 = 28px
+$h2 = 22px
+$h3 = 18px
+$h4 = 16px
+$h5 = 14px
+$h6 = 13px
+
+
+
+h1() {
+    font-family 'TT Norms Bold'
+    font-style: normal;
+    font-weight: bold;
+    font-size: $h1;
+    color: #000000;
+}
+
+h2() {
+    font-family 'TT Norms Medium'
+    font-style: normal;
+    font-weight: 500;
+    font-size: $h2;
+    color: #000000;
+}
+
+h3() {
+    font-family 'TT Norms Medium'
+    font-style: normal;
+    font-weight: 500;
+    font-size: $h3;
+    color: #000000;
+}
+h4() {
+    font-family 'TT Norms Medium'
+    font-style: normal;
+    font-weight: normal;
+    font-size: $h4;
+    color: #000000;
+}
+
+h5() {
+    font-family 'TT Norms Medium'
+    font-style: normal;
+    font-weight: 500;
+    font-size: $h5;
+    color: #000000;
+}
+h6() {
+    font-family 'TT Norms Medium'
+    font-style: normal;
+    font-weight: 500;
+    font-size: $h6;
+    color: #000000;
+}
+
+
+//-----------------Buttons-----------------------//
+
+
+.add-btn
+    position: fixed;
+    left: 50%;
+    bottom 10vh;
+    transform: translate(-50%, -50%)
+    display flex
+    flex-direction row
+    justify-content center
+    align-items center
+    z-index 10
+    img 
+        opacity 0.3
+        width 70px
+        height 70px
+        transition all .25s
+        &:hover
+            opacity 1
+            cursor pointer
+            transform scale(0.9)
+            transition all .25s
+
+
+.primary-btn
+    font-family 'TT Norms Medium'
+    width 200px
+    height 40px
+    h6()
+    color: #FFFFFF;
+    white-space: nowrap;
+    background: $main-color;
+    border-radius: 6px;
+    display flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    user-select none
+    transition: opacity .3s
+    &:hover
+        cursor pointer
+        opacity 0.7
+        transition: opacity .3s
+    img 
+        width 18px
+        height 18px
+        margin-right 8px
+
+
+//-----------------ANIMATION-----------------------//
+
+
+.fadetest-enter-active, .fadetest-leave-active {
+    .scene-card {
+        transition: opacity .25s 
+    }
+}
+.fadetest-enter, .fadetest-leave-to {
+   .scene-card {
+        opacity: 0
+    }
+}
+
+
+// .fscale-enter-active, .fscale-leave-active {
+//     transition: all 0.25s
+// }
+// // .fscale-enter {
+// //     opacity: 0
+// //     transform: scale(1)
+// // }
+
+// .fscale-enter, .fscale-leave-to {
+//     opacity: 0
+//     // transform: scale(0.8)
+//     width 80%
+
+
+// }
+

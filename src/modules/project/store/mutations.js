@@ -1,0 +1,1 @@
+export const SET_CONTENT = (state, data) => state.content = data

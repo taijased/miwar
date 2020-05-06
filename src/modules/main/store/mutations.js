@@ -1,0 +1,1 @@
+export const UPDATE_TREE_DATA = (state, data) => state.dataTree = data
