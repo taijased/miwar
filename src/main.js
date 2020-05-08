@@ -5,8 +5,6 @@ import store from './store'
 
 
 
-
-
 Vue.config.productionTip = false
 
 // Global style css
@@ -36,6 +34,13 @@ Vue.use(VueQuillEditor, /* { default global options } */)
 import VueSimpleAlert from "vue-simple-alert";
 Vue.use(VueSimpleAlert);
 
+
+
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
 
 
 //Notification

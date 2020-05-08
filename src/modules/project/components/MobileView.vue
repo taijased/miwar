@@ -33,7 +33,7 @@ export default {
 
             setTimeout(() => {
                 this.generateMark(payload.id)
-            }, 1500);
+            }, 1000);
         }
     },
     computed: {

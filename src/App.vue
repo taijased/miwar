@@ -1,12 +1,32 @@
 <template lang="pug">
-  #app
+  #app(v-loading="loading")
     transition(name="fade", mode="out-in", :css="true")
       router-view
     <vue-snotify></vue-snotify>
 </template>
 <script>
 
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
+  methods: {
+    ...mapActions({
+      setLoadingStatus: "main/setLoadingStatus",
+    })
+  },
+  computed: {
+    ...mapGetters({
+      getLoadingStatus: "main/getLoadingStatus",
+    }),
+    loading: {
+      get(){
+        return this.getLoadingStatus
+      },
+      set(val) {
+        return this.setLoadingStatus(val)
+      }
+    },
+  }
  
 }
 </script>

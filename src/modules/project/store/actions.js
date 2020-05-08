@@ -1,6 +1,7 @@
 
 import ProjectServices from '../api/ProjectServices';
 import Router from '../../../router';
+import THREEx from '../api/threex-arpatternfile';
 
 
 export function setContent({commit}, payload) {
@@ -16,15 +17,62 @@ export function setProject({commit}, payload) {
 
 
 export async function generateMark({dispatch}, payload) {
+
+  dispatch('main/setLoadingStatus', true, { root: true } )
+
+  const loadImageCrossOrigin = url => new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = url;
+    img.onerror = error => reject(error);
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      canvas.width = img.width;
+      canvas.height = img.height;
+      context.drawImage(img, 0, 0);
+
+      resolve(canvas.toDataURL('image/jpeg'));
+    };
+  });
+
+
+  alert(`GET: ${process.env.VUE_APP_API_URL}marker/${payload}`)
   new Promise((resolve, reject) => {
     ProjectServices.getMarker(payload)
-      .then(response => {
-        
+      .then(async response => {
 
-        window.open(process.env.VUE_APP_API_URL + "marker/" + payload,'_blank');
+        alert(`THREEx.ArPatternFile.encodeImageUR`)
+
+        let innerImageURL = await loadImageCrossOrigin(`${process.env.VUE_APP_API_URL}marker/${payload}`);
+          THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){        
+          let blobPattern = new Blob([patternFileString], {type : 'application/octet-stream'});
+          let formData = new FormData();
+          formData.append("webmasterfile", blobPattern);
+
+          alert(`POST: ${process.env.VUE_APP_API_URL}marker/${payload}  multipart/data`)
+          new Promise((resolve, reject) => {
+            ProjectServices.uploadPattern(payload, formData)
+              .then(response => {
+                dispatch('main/setLoadingStatus', false, { root: true } )
+                window.open(process.env.VUE_APP_API_URL + "marker/" + payload,'_blank');
+                resolve(response)
+              })
+              .catch(error => {
+                dispatch('main/setLoadingStatus', false, { root: true } )
+                reject(error)
+              })
+          })
+
+          dispatch('main/setLoadingStatus', false, { root: true } )
+        });
+
+
         resolve(response)
       })
       .catch(error => {
+        dispatch('main/setLoadingStatus', false, { root: true } )
         reject(error)
       });
   })
@@ -46,14 +94,18 @@ export function updateProject({commit}, payload) {
 
 
 
-export function fetchProjects({commit}, payload) {
+export function fetchProjects({dispatch, commit}, payload) {
+
+  dispatch('main/setLoadingStatus', true, { root: true } )
   new Promise((resolve, reject) => {
     ProjectServices.fetchProjects()
       .then(response => {
         commit("SET_PROJECTS", response.data.result);
+        dispatch('main/setLoadingStatus', false, { root: true } )
         resolve(response)
       })
       .catch(error => {
+        dispatch('main/setLoadingStatus', false, { root: true } )
         reject(error)
       });
   })
@@ -99,14 +151,17 @@ export function removeProject({dispatch}, payload) {
 
 
 export function fetchProject({dispatch, commit}, payload) {
+  dispatch('main/setLoadingStatus', true, { root: true } )
   new Promise((resolve, reject) => {
     ProjectServices.getProject(payload)
       .then(response => {
         commit("SET_PROJECT", response.data.result)
         dispatch('main/setProjectName', response.data.result.name, { root: true } )
+        dispatch('main/setLoadingStatus', false, { root: true } )
         resolve(response)
       })
       .catch(error => {
+        dispatch('main/setLoadingStatus', false, { root: true } )
         reject(error)
       });
   })

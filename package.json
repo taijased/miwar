@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.4.4",
     "downloadjs": "^1.4.7",
+    "element-ui": "^2.13.1",
     "node-sass": "^4.13.1",
     "pug": "^2.0.4",
     "pug-plain-loader": "^1.0.0",

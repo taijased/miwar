@@ -30,6 +30,10 @@ const ProjectServices = {
     },
     getMarker(id) {
         return API.get('marker/' + id)
+    },
+    uploadPattern(id, formData) {
+
+        return API.post('pattern/' + id, formData)
     }
 }
 

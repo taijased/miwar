@@ -1,4 +1,5 @@
 export default {
     example: null,
-    projectName: "Project Name"
+    projectName: "Project Name",
+    loadingStatus: false
 };
