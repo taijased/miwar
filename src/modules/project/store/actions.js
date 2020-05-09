@@ -38,12 +38,12 @@ export async function generateMark({dispatch}, payload) {
   });
 
 
-  alert(`GET: ${process.env.VUE_APP_API_URL}marker/${payload}`)
+  // alert(`GET: ${process.env.VUE_APP_API_URL}marker/${payload}`)
   new Promise((resolve, reject) => {
     ProjectServices.getMarker(payload)
       .then(async response => {
 
-        alert(`THREEx.ArPatternFile.encodeImageUR`)
+        // alert(`THREEx.ArPatternFile.encodeImageUR`)
 
         let innerImageURL = await loadImageCrossOrigin(`${process.env.VUE_APP_API_URL}marker/${payload}`);
           THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){        
@@ -51,7 +51,7 @@ export async function generateMark({dispatch}, payload) {
           let formData = new FormData();
           formData.append("webmasterfile", blobPattern);
 
-          alert(`POST: ${process.env.VUE_APP_API_URL}marker/${payload}  multipart/data`)
+          // alert(`POST: ${process.env.VUE_APP_API_URL}marker/${payload}  multipart/data`)
           new Promise((resolve, reject) => {
             ProjectServices.uploadPattern(payload, formData)
               .then(response => {
