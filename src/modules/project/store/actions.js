@@ -40,13 +40,13 @@ export async function generateMark({dispatch}, payload) {
 
   // alert(`GET: ${process.env.VUE_APP_API_URL}marker/${payload}`)
   new Promise((resolve, reject) => {
-    ProjectServices.getMarker(payload)
+    ProjectServices.uploadMarker(payload)
       .then(async response => {
 
         // alert(`THREEx.ArPatternFile.encodeImageUR`)
 
         let innerImageURL = await loadImageCrossOrigin(`${process.env.VUE_APP_API_URL}marker/${payload}`);
-          THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){        
+        THREEx.ArPatternFile.encodeImageURL(innerImageURL, function onComplete(patternFileString){        
           let blobPattern = new Blob([patternFileString], {type : 'application/octet-stream'});
           let formData = new FormData();
           formData.append("webmasterfile", blobPattern);
