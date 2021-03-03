@@ -14,7 +14,7 @@
     "downloadjs": "^1.4.7",
     "element-ui": "^2.13.1",
     "node-sass": "^4.13.1",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
     "rete": "^1.4.3-rc.1",
     "rete-connection-plugin": "^0.9.0",
